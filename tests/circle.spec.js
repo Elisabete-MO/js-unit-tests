@@ -23,23 +23,40 @@ const circle = require('../src/circle');
 
 describe('4 - Implemente os casos de teste para a função `circle`', () => {
   it('Verifica se ao receber um raio, a função `circle` retorna um objeto contendo os valores esperados', () => {
-    // fail('Teste vazio!');
-    // ESCREVA SEUS TESTES ABAIXO:
-    // Teste se circle retorna undefined, caso o parâmetro passado não seja um número.
+    expect(Object.values(circle(15.5)).map(num => num.toFixed(2))).toEqual(["15.50", "754.38", "97.34"]);
+    expect(Object.values(circle(1)).map(num => num.toFixed(2))).toEqual(["1.00", "3.14", "6.28"]);
+    expect(Object.values(circle(7)).map(num => num.toFixed(2))).toEqual(["7.00", "153.86", "43.96"]);
+    // https://stackoverflow.com/questions/9671203/how-to-round-all-the-values-in-an-array-to-2-decimal-points
+  });
+  
+  it('Teste se circle retorna undefined, caso o parâmetro passado não seja um número', () => {
     expect(circle('pi')).toBeUndefined();
-    expect(circle(' ')).toBeUndefined();
     expect(circle([' '])).toBeUndefined();
     expect(circle(['3'])).toBeUndefined();
   });
-    // Teste se circle retorna um objeto.
-    it('Verifica se ao receber um raio, a função `circle` retorna um objeto', () => {
+
+  it('Verifica se ao receber um raio, a função `circle` retorna um objeto', () => {
     expect(typeof circle(5)).toBe('object');
-    expect(circle(15.5)).toEqual({"area": 754.385, "circumference": 97.34, "radius": 15.5});
-    // Teste se o objeto retornado possui 3 propriedades.
-    expect(Object.keys(circle(6)).length).toEqual(3);
-    // Teste se a função, quando não recebe nenhum parâmetro, retorna undefined.
-    // Teste se dentro do objeto retornado, a função retorna uma `key` com `value` igual à circunferência correta para um círculo de raio 2.
-    // Teste se dentro do objeto retornado, a função retorna uma `key` com `value` igual à área correta para um círculo de raio 3.
-    // Teste se a função retorna, em um objeto, os dados corretos de um círculo de raio 3.
   });
+
+  it('Teste se o objeto retornado possui 3 propriedades', () => {
+    expect(Object.keys(circle(6)).length).toEqual(3);
+  });
+
+  it('Teste se a função, quando não recebe nenhum parâmetro, retorna undefined', () => { 
+    expect(circle(' ')).toBeUndefined();
+    expect(circle()).toBeUndefined();
+  });
+  
+  it('Teste se dentro do objeto retornado, a função retorna uma `key` com `value` igual à circunferência correta para um círculo de raio 2', () => {
+    expect(circle(2).circumference).toEqual(12.56);
+  });  
+  
+  it('Teste se dentro do objeto retornado, a função retorna uma `key` com `value` igual à área correta para um círculo de raio 3', () => {
+    expect(circle(3).area).toBeCloseTo(28.26);
+  }); 
+
+  it('Teste se a função retorna, em um objeto, os dados corretos de um círculo de raio 3', () => {
+    expect(Object.values(circle(3)).map(num => num.toFixed(2))).toEqual(["3.00", "28.26", "18.84"]);
+  }); 
 });
